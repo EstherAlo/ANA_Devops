@@ -40,7 +40,7 @@ resource "aws_route53_record" "project_terraform_record" {
 # create records for wordpress
 resource "aws_route53_record" "wordpress" {
   zone_id = data.aws_route53_zone.project_terraform_zone.zone_id
-  name    = "wordpress.projectaws.xyz"
+  name    = "website.projectaws.xyz"
   type    = "A"
 
   alias {

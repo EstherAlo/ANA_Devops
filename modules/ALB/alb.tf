@@ -64,8 +64,8 @@ resource "aws_lb" "int-alb" {
   load_balancer_type = var.load-balancer-type
 }
 
-# --- target group  for wordpress -------
-resource "aws_lb_target_group" "wordpress-tgt" {
+# --- target group  for website -------
+resource "aws_lb_target_group" "website-tgt" {
   health_check {
     interval            = var.interval
     path                = var.path
@@ -75,7 +75,7 @@ resource "aws_lb_target_group" "wordpress-tgt" {
     unhealthy_threshold = var.unhealthy-threshold
   }
 
-  name        = "wordpress-tgt"
+  name        = "website-tgt"
   port        = var.port
   protocol    = var.protocol
   target_type = var.target-type
@@ -94,7 +94,7 @@ resource "aws_lb_listener" "web-listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.wordpress-tgt.arn
+    target_group_arn = aws_lb_target_group.website-tgt.arn
   }
 }
 

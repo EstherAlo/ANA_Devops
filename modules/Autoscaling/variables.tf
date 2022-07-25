@@ -56,9 +56,9 @@ variable "nginx-alb-tgt" {
   description = "nginx reverse proxy target group"
 }
 
-variable "wordpress-alb-tgt" {
+variable "web-alb-tgt" {
   type        = string
-  description = "wordpress target group"
+  description = "web target group"
 }
 
 

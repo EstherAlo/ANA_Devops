@@ -94,9 +94,8 @@ module "AutoScaling" {
   web-sg                    = [module.Security.web-sg]
   bastion-sg                = [module.Security.bastion-sg]
   nginx-sg                  = [module.Security.nginx-sg]
-  wordpress-alb-tgt         = module.ALB.wordpress-tgt
+  wordpress-alb-tgt         = module.ALB.web-tgt
   nginx-alb-tgt             = module.ALB.nginx-tgt
-  tooling-alb-tgt           = module.ALB.tooling-tgt
   instance_profile          = module.VPC.instance_profile
   public_subnets            = [module.VPC.public_subnets-1, module.VPC.public_subnets-2]
   private_subnets           = [module.VPC.private_subnets-1, module.VPC.private_subnets-2]
@@ -104,24 +103,8 @@ module "AutoScaling" {
   instance_type             = "t2.micro"
   resource_type             = "instance"
   bastion-launch-name       = "bastion-launch-template"
-  nginx-launch-name         = "nginx-launch-template"
-  wordpress-launch-name     = "wordpress-launch-template"
+  wordpress-launch-name     = "web-launch-template"
   health-check-grace-period = 300
   health-check-type         = "ELB"
 }
 
-
-
-# The Module creates instances for jenkins, sonarqube abd jfrog
-module "compute" {
-  source                       = "./modules/compute"
-  ami-jenkins                  = var.ami-bastion
-  ami-sonar                    = var.ami-sonar
-  ami-jfrog                    = var.ami-bastion
-  subnets-compute              = module.VPC.public_subnets-1
-  sg-compute                   = [module.Security.ALB-sg]
-  keypair                      = var.keypair
-  instance-type-jenkins        = "t2.micro"
-  instance-type-artifact-sonar = "t2.medium"
-
-}

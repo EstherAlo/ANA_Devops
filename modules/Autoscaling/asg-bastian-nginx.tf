@@ -14,7 +14,7 @@ resource "aws_autoscaling_notification" "aws_notifications" {
   group_names = [
     aws_autoscaling_group.bastion-asg.name,
     aws_autoscaling_group.nginx-asg.name,
-    aws_autoscaling_group.wordpress-asg.name,
+    aws_autoscaling_group.website-asg.name,
     
   ]
   notifications = [
@@ -51,7 +51,7 @@ resource "aws_autoscaling_group" "bastion-asg" {
   }
   tag {
     key                 = "Name"
-    value               = "ACS-Bastion"
+    value               = "ANA-Bastion"
     propagate_at_launch = true
   }
 
@@ -77,7 +77,7 @@ resource "aws_autoscaling_group" "nginx-asg" {
 
   tag {
     key                 = "Name"
-    value               = "ACS-nginx"
+    value               = "ANA-nginx"
     propagate_at_launch = true
   }
 
